@@ -1,0 +1,16 @@
+version: '3.9'
+services:
+    ngcpytcuda:
+        container_name: pytorchcuda
+        build: .
+        ports: 
+            - "8888:8888"
+        command: [jupyter,lab,--ip=0.0.0.0,--NotebookApp.allow_origin='https://colab.research.google.com', --allow-root]
+       
+        volumes: 
+            - "./notebooks:/home/notebooks"
+        deploy:
+            resources:
+                reservations:
+                    devices: 
+                     - capabilities: [gpu,utility,compute]
